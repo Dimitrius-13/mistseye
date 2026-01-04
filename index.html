@@ -1,432 +1,550 @@
 <!DOCTYPE html>
 <html lang="uk">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>МісцеЄ | Ваш персональний міні-склад</title>
-        <link
-            href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap"
-            rel="stylesheet">
-        <style>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>МісцеЄ | Міні-склади у Вінниці</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Raleway:wght@400;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
         :root {
-            /* Палітра "Сад і Город" */
-            --primary: #76b041;       /* Салатовий */
-            --primary-dark: #4a7c2a;  /* Темно-зелений */
-            --accent: #ff9f43;        /* Помаранчевий акцент (для знижок) */
+            --primary: #76b041;        
+            --primary-dark: #4a7c2a;   
+            --accent-yellow: #FFC107; 
+            --border-yellow: #d4a006; 
+            --accent-gray: #C3C3C3;
+            --border-gray: #888888;    
             --text: #2d3436;
-            --bg-light: #f1f8e9;      /* Дуже світлий зелений фон */
             --white: #ffffff;
             --gray: #636e72;
+            --bg-light: #f1f8e9;
+
+            /* --- РОЗМІРИ СОТ --- */
+            --hex-w: 130px;
+            --hex-h: 150px;        
+            --hex-gap: 6px;        
+            --row-overlap: -36px;  
+            --shift-amount: 68px;  
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Montserrat', sans-serif; color: var(--text); background-color: var(--bg-light); line-height: 1.6; }
         a { text-decoration: none; color: inherit; transition: 0.3s; }
-        ul { list-style: none; }
-        img { max-width: 100%; }
+        img { max-width: 100%; display: block; }
 
         /* HEADER */
-        header {
-            background: var(--white);
-            padding: 15px 0;
-            position: sticky; top: 0; z-index: 1000;
-            box-shadow: 0 4px 15px rgba(118, 176, 65, 0.15);
-        }
+        header { background: var(--white); padding: 15px 0; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 15px rgba(118, 176, 65, 0.15); }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
         .header-wrap { display: flex; justify-content: space-between; align-items: center; }
-        
-        .logo { font-size: 28px; font-weight: 800; color: var(--primary-dark); text-transform: uppercase; letter-spacing: -1px; }
+        .logo { font-size: 28px; font-weight: 800; color: var(--primary-dark); letter-spacing: -1px; }
         .logo span { color: var(--primary); }
+        .header-contacts { display: flex; gap: 20px; align-items: center; }
+        .phones { display: flex; flex-direction: column; text-align: right; font-weight: 700; font-size: 14px; }
+        .phones a:hover { color: var(--primary); }
 
-        .header-contacts { display: flex; gap: 15px; align-items: center; }
-        .phone-link { font-weight: 700; font-size: 18px; color: var(--text); }
-        .btn-call {
-            background: var(--primary); color: white; padding: 10px 25px; border-radius: 50px; font-weight: 600; font-size: 14px;
-            box-shadow: 0 4px 10px rgba(118, 176, 65, 0.3);
-        }
-        .btn-call:hover { background: var(--primary-dark); transform: translateY(-2px); }
-
-        /* HERO SECTION */
+        /* HERO */
         .hero {
-            /* Можна замінити URL на реальне фото складу */
             background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
-            background-size: cover; background-position: center;
-            height: 550px; display: flex; align-items: center; text-align: center; color: white;
+            background-size: cover; background-position: center; padding: 100px 0; color: white; text-align: center;
         }
-        .hero h1 { font-size: 38px; margin-bottom: 20px; font-weight: 800; line-height: 1.2; }
-        .hero p { font-size: 18px; max-width: 800px; margin: 0 auto 35px; opacity: 0.9; }
-        .btn-hero {
-            background: var(--primary); color: white; padding: 18px 45px; border-radius: 50px; font-size: 18px; font-weight: 700; 
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2); display: inline-block;
-        }
+        .hero h1 { font-size: 38px; margin-bottom: 20px; font-weight: 800; line-height: 1.2; text-transform: uppercase; }
+        .hero-btns { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
+        .btn-hero { background: var(--primary); color: white; padding: 15px 40px; border-radius: 50px; font-size: 18px; font-weight: 700; box-shadow: 0 10px 20px rgba(0,0,0,0.2); cursor: pointer; border: none; }
         .btn-hero:hover { background: var(--primary-dark); transform: scale(1.05); }
 
-        /* ABOUT / HONEYCOMB STYLE */
-        .about { padding: 80px 0; text-align: center; }
-        .section-title { font-size: 32px; color: var(--text); margin-bottom: 15px; font-weight: 800; text-transform: uppercase; }
-        .section-desc { max-width: 900px; margin: 0 auto 50px; color: var(--gray); font-size: 16px; }
+        /* --- HONEYCOMB --- */
+        .honeycomb-section { padding: 60px 0; }
+        .section-title { font-size: 32px; color: var(--text); margin-bottom: 40px; font-weight: 800; text-transform: uppercase; text-align: center; }
+        .section-intro-text { text-align: center; max-width: 800px; margin: 0 auto 40px; font-size: 18px; color: var(--text); line-height: 1.5; }
 
-        /* Grid for Hexagons */
-        .benefits-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; margin-top: 40px; }
-        .hex-item { width: 180px; text-align: center; }
+        .hex-grid-container { display: flex; flex-direction: column; align-items: center; padding-bottom: 30px; }
+        .hex-row { display: flex; justify-content: center; gap: var(--hex-gap); margin-top: var(--row-overlap); position: relative; z-index: 1; }
+        .hex-row:first-child { margin-top: 0; z-index: 10; }
+        .hex-row:nth-child(2) { z-index: 9; }
+        .hex-row:nth-child(3) { z-index: 8; }
+        .push-right { margin-left: calc(var(--hex-w) + var(--hex-gap)); }
+        .offset-right { transform: translateX(calc(var(--shift-amount) / 1)); }
+        .offset-left { transform: translateX(calc(var(--shift-amount) * -1)); }
+        .hex-wrapper { width: var(--hex-w); height: var(--hex-h); filter: drop-shadow(0 4px 3px rgba(0,0,0,0.15)); transition: transform 0.2s; }
+        .hex-wrapper:hover { transform: scale(1.05); z-index: 50; }
+        .hex-border { width: 100%; height: 100%; clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); background-color: #333; display: flex; align-items: center; justify-content: center; }
+        .hex-inner { width: calc(100% - 4px); height: calc(100% - 4px); clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); background-color: #fff; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 5px; gap: 10px; }
+        .hex-inner i, .hex-inner svg { width: 32px; height: 32px; stroke-width: 1.5; }
+        .hex-inner h4 { margin: 0; font-size: 11px; font-weight: 800; text-transform: uppercase; line-height: 1.2; color: #2d3436; }
+        .type-yellow .hex-border { background-color: var(--border-yellow); }
+        .type-yellow .hex-inner { background-color: var(--accent-yellow); }
+        .type-yellow:hover .hex-inner { background-color: #ffd54f; }
+        .type-gray .hex-border { background-color: var(--border-gray); }
+        .type-gray .hex-inner { background-color: var(--accent-gray); }
+        .type-gray .hex-inner h4 { color: white; }
+        .type-gray .hex-inner i, .type-gray .hex-inner svg { stroke: white; }
+        .rules-wrapper { display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; align-items: flex-start; }
+        .rules-column { flex: 1; min-width: 320px; display: flex; flex-direction: column; align-items: center; }
+
+        /* CALCULATOR */
+        .calculator { background: white; padding: 60px 0; border-radius: 30px 30px 0 0; margin-top: -30px; position: relative; z-index: 10; }
+        .section-desc { text-align: center; margin-bottom: 30px; color: var(--gray); max-width: 700px; margin-left: auto; margin-right: auto; }
         
-        /* CSS Hexagon shape */
-        .hex-icon-box {
-            width: 100px; height: 115px; background: var(--primary); margin: 0 auto 20px;
-            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-            display: flex; align-items: center; justify-content: center; font-size: 40px; color: white;
-            transition: 0.3s;
-        }
-        .hex-item:hover .hex-icon-box { background: var(--primary-dark); transform: rotate(360deg); }
-        .hex-title { font-weight: 700; font-size: 16px; margin-bottom: 5px; }
+        .vehicle-wrap { display: flex; justify-content: center; gap: 20px; margin-bottom: 30px; flex-wrap: wrap; }
+        .vehicle-btn { border: 2px solid #eee; background: white; padding: 20px; border-radius: 15px; cursor: pointer; text-align: center; min-width: 150px; transition: 0.2s; }
+        .vehicle-btn img { width: 64px; height: 40px; margin: 0 auto 10px; object-fit: contain; }
+        .vehicle-btn.active { border-color: var(--primary); background: var(--bg-light); transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .v-title { font-weight: 700; display: block; }
+        .v-subtitle { font-size: 12px; color: var(--gray); }
 
-        /* CALCULATOR SECTION */
-        .calculator-section { background: white; padding: 80px 0; border-radius: 30px 30px 0 0; position: relative; top: -30px; }
+        .calc-grid { display: grid; grid-template-columns: 1.3fr 0.7fr; gap: 40px; max-width: 1100px; margin: 0 auto; }
+        .left-col { display: flex; flex-direction: column; }
         
-        /* Vehicle Icons */
-        .vehicle-selector { display: flex; justify-content: center; gap: 20px; margin-bottom: 40px; flex-wrap: wrap; }
-        .vehicle-btn {
-            border: 2px solid #eee; background: white; padding: 15px 25px; border-radius: 15px; cursor: pointer; text-align: center; min-width: 140px; transition: 0.2s;
-        }
-        .vehicle-btn.active { border-color: var(--primary); background: var(--bg-light); }
-        .v-icon { font-size: 32px; display: block; margin-bottom: 5px; }
-        .v-name { font-weight: 700; display: block; }
-        .v-size { font-size: 12px; color: var(--gray); }
+        .sizes-wrap { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 20px; }
+        .size-btn { padding: 10px 5px; border: 2px solid #eee; background: white; border-radius: 10px; cursor: pointer; text-align: center; transition: 0.2s; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 90px; }
+        .size-btn.active { background: var(--primary); color: white; border-color: var(--primary); box-shadow: 0 4px 10px rgba(118, 176, 65, 0.4); transform: scale(1.02); z-index: 2; }
+        .size-btn.disabled { opacity: 0.4; cursor: not-allowed; background: #f9f9f9; pointer-events: none; }
+        .size-val { font-size: 16px; font-weight: 800; line-height: 1.2; }
+        .size-price { font-size: 13px; font-weight: 600; margin-top: 5px; }
 
-        /* Size Grid */
-        .size-grid { 
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 10px; max-width: 800px; margin: 0 auto 40px; 
+        /* ОНОВЛЕНО: ТЕРМІН ОРЕНДИ */
+        .term-selector { 
+            display: flex; 
+            gap: 10px; 
+            margin-bottom: 25px; 
+            background: #f9f9f9; 
+            padding: 5px; 
+            border-radius: 15px; 
+            flex-wrap: wrap; 
+            justify-content: center;
         }
-        .size-btn {
-            padding: 15px; border: 2px solid #eee; background: white; border-radius: 10px; cursor: pointer; font-weight: 700; color: var(--text); transition: 0.2s;
+        .term-btn { 
+            flex: 1; 
+            min-width: 80px;
+            border: none; 
+            background: transparent; 
+            padding: 10px 5px; 
+            border-radius: 10px; 
+            font-weight: 700; 
+            color: var(--gray); 
+            cursor: pointer; 
+            transition: 0.3s; 
+            font-size: 12px;
+            position: relative;
         }
-        .size-btn:hover { border-color: var(--primary); }
-        .size-btn.active { background: var(--primary); color: white; border-color: var(--primary); box-shadow: 0 5px 15px rgba(118, 176, 65, 0.3); }
+        .term-btn:hover { background: #eee; }
+        .term-btn.active { 
+            background: white; 
+            color: var(--primary-dark); 
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1); 
+        }
+        /* Стиль для кнопки Акція (15+ міс) */
+        .term-btn.promo-btn {
+            color: #d63031;
+        }
+        .term-btn.promo-btn.active {
+            color: #d63031;
+            background: #fff0f0;
+        }
 
-        /* Term Selector */
-        .term-selector { display: flex; justify-content: center; gap: 10px; margin-bottom: 40px; flex-wrap: wrap; }
-        .term-btn {
-            padding: 8px 20px; border: 1px solid #ccc; border-radius: 20px; background: white; cursor: pointer; font-weight: 500;
+        /* Результат */
+        .calc-result-bar { 
+            background: #f1f8e9; 
+            border: 2px solid #c8e6c9; 
+            padding: 20px 30px; 
+            border-radius: 15px; 
+            display: flex; 
+            flex-direction: column; /* Змінив на column для бейджа */
+            position: relative;
         }
-        .term-btn.active { background: var(--text); color: white; border-color: var(--text); }
-        .term-btn.promo { color: #d63031; border-color: #d63031; }
-        .term-btn.promo.active { background: #d63031; color: white; }
+        
+        /* Бейдж акції */
+        .discount-badge {
+            background: #E1306C;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 14px;
+            text-transform: uppercase;
+            align-self: center;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 10px rgba(225, 48, 108, 0.3);
+            animation: pulse 2s infinite;
+        }
 
-        /* Result Card */
-        .result-card {
-            background: var(--bg-light); border: 2px solid var(--primary); border-radius: 20px; padding: 30px; max-width: 500px; margin: 0 auto; text-align: center;
-        }
-        .price-tag { font-size: 48px; font-weight: 800; color: var(--primary-dark); line-height: 1; margin: 15px 0; }
-        .price-label { font-size: 14px; color: var(--gray); text-transform: uppercase; letter-spacing: 1px; }
-        .discount-badge { 
-            background: var(--accent); color: white; padding: 5px 15px; border-radius: 20px; font-size: 14px; font-weight: 700; display: inline-block; margin-bottom: 10px;
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
 
-        /* LOCATION & CONTACTS */
-        .location { padding: 60px 0; text-align: center; }
-        .maps-row { display: flex; gap: 20px; justify-content: center; margin-top: 30px; flex-wrap: wrap; }
-        .map-frame { width: 500px; height: 350px; background: #ddd; border-radius: 15px; overflow: hidden; position: relative; max-width: 100%; }
-        .scheme-placeholder { 
-            width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: #fdfdfd; border: 2px dashed #ccc; color: #aaa; flex-direction: column; 
+        .result-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
         }
 
-        /* FOOTER */
-        footer { background: #2d3436; color: white; padding: 50px 0; text-align: center; }
-        .footer-slogan { opacity: 0.6; font-style: italic; margin-bottom: 30px; }
-        .schedule p { margin-bottom: 10px; font-size: 16px; }
-        .social-links { margin-top: 30px; display: flex; justify-content: center; gap: 20px; }
-        .social-btn { 
-            width: 50px; height: 50px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; transition: 0.3s;
-        }
-        .social-btn.viber:hover { background: #7360f2; }
-        .social-btn.tg:hover { background: #0088cc; }
+        .result-title { font-weight: 800; font-size: 22px; color: var(--primary-dark); margin: 0; line-height: 1.2; }
+        .result-price-block { margin-top: 5px; }
+        
+        .old-price { font-size: 14px; text-decoration: line-through; color: #999; margin-right: 5px; font-weight: 600; }
+        .result-price { font-size: 40px; font-weight: 800; color: var(--primary); line-height: 1; }
+        .total-sum { font-size: 13px; color: var(--text); background: rgba(255,255,255,0.6); padding: 4px 10px; border-radius: 5px; margin-top: 5px; display: inline-block; font-weight: 600; }
 
-        /* Mobile Adjustments */
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 28px; }
-            .vehicle-selector { gap: 10px; }
-            .vehicle-btn { flex: 1; min-width: 100px; padding: 10px; }
-            .v-icon { font-size: 24px; }
-            .v-name { font-size: 14px; }
+        .result-actions { display: flex; gap: 10px; }
+        .btn-green { background: var(--primary); color: white; border: none; padding: 15px 30px; border-radius: 30px; font-weight: 700; cursor: pointer; text-transform: uppercase; font-size: 14px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: 0.2s; }
+        .btn-green:hover { background: var(--primary-dark); transform: translateY(-2px); }
+        .btn-dark { background: #2d3436; color: white; border: none; padding: 15px 30px; border-radius: 30px; font-weight: 700; cursor: pointer; text-transform: uppercase; font-size: 14px; transition: 0.2s; }
+        .btn-dark:hover { background: #000; transform: translateY(-2px); }
+
+        /* Visualizer */
+        .visualizer { background: #fafafa; border-radius: 20px; overflow: hidden; height: 100%; min-height: 400px; position: relative; display: flex; align-items: center; justify-content: center; border: 1px solid #eee; }
+        .visualizer img { width: 100%; height: 100%; object-fit: contain; }
+        .size-badge { position: absolute; top: 20px; right: 20px; background: var(--primary); color: white; padding: 5px 15px; border-radius: 20px; font-weight: 700; font-size: 18px; z-index: 10; }
+
+        /* LOCATION */
+        .location-section { padding: 60px 0; background-color: var(--bg-light); }
+        .maps-row { display: flex; gap: 30px; justify-content: center; margin-top: 40px; flex-wrap: wrap; }
+        .map-frame { flex: 1; min-width: 300px; height: 400px; background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border: 2px solid #fff; }
+        .scheme-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: #f8f9fa; color: #aaa; flex-direction: column; }
+
+        footer { background: #2d3436; color: white; padding: 50px 0; text-align: center; margin-top: 0; }
+        .socials { display: flex; justify-content: center; gap: 15px; margin-top: 20px; }
+        .social-link { width: 40px; height: 40px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+        .social-link:hover { background: var(--primary); }
+
+        @media (max-width: 900px) {
+            .calc-grid { grid-template-columns: 1fr; }
+            .visualizer { height: 300px; min-height: 300px; order: -1; margin-bottom: 20px; } 
+            .calc-result-bar { text-align: center; gap: 10px; }
+            .result-content { flex-direction: column; gap: 20px; }
+            .result-actions { width: 100%; justify-content: center; flex-direction: column; }
+            .header-contacts { flex-direction: column; gap: 10px; }
+            .phones { text-align: center; }
+        }
+        
+        @media (max-width: 600px) {
+            :root { --hex-w: 90px; --hex-h: 104px; }
+            .hex-row { flex-wrap: wrap; }
+            .offset-right, .offset-left { transform: none; }
+            .term-selector { flex-wrap: wrap; }
+            .term-btn { min-width: 45%; }
         }
     </style>
-    </head>
-    <body>
+</head>
+<body>
 
-        <header>
-            <div class="container header-wrap">
-                <div class="logo">Місце<span>Є</span></div>
-                <div class="header-contacts">
-                    <a href="#calculator" class="btn-call">Замовити дзвінок</a>
+    <header>
+        <div class="container header-wrap">
+            <div class="logo">Місце<span>Є</span></div>
+            <div class="header-contacts">
+                <div class="phones">
+                    <a href="tel:0985110505">098 511 05 05</a>
+                    <a href="tel:0995110505">099 511 05 05</a>
+                </div>
+                <div style="font-size: 12px; font-weight: 600; color: var(--gray);">
+                    <i data-lucide="map-pin" style="width: 14px; vertical-align: middle;"></i> Вінниця, вул. Фрунзе 4
                 </div>
             </div>
-        </header>
+        </div>
+    </header>
 
-        <section class="hero">
-            <div class="container">
-                <h1>Вам необхідно звільнити підвал,<br>горище чи балкон?</h1>
-                <p>Ми вирішимо Ваші проблеми. Звільніть дім для життя, а речі,
-                    якими рідко користуєтеся, довірте нам.</p>
-                <a href="#calculator" class="btn-hero">Розрахувати вартість</a>
+    <section class="hero">
+        <div class="container">
+            <h1>МІНІ СКЛАДИ ДЛЯ ВАШИХ РЕЧЕЙ</h1>
+            <p style="font-weight: 700; color: var(--primary); background: white; display: inline-block; padding: 5px 15px; border-radius: 20px; margin-bottom: 20px;">
+                Доступні бокси розміром від 1 м³
+            </p>
+            <div class="hero-btns">
+                <button class="btn-hero" onclick="document.getElementById('calculator').scrollIntoView({behavior: 'smooth'})">Розрахувати вартість</button>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section class="about">
-            <div class="container">
-                <h2 class="section-title">Чому обирають нас</h2>
-                <p class="section-desc">
-                    У нас Ви орендуєте тепле, сухе і чисте приміщення площею від
-                    1 до 6 м² з охороною, відеоспостереженням та доступом 24/7.
-                </p>
-
-                <div class="benefits-grid">
-                    <div class="hex-item">
-                        <div class="hex-icon-box">🛡️</div>
-                        <div class="hex-title">Охорона 24/7</div>
-                    </div>
-                    <div class="hex-item">
-                        <div class="hex-icon-box">🌡️</div>
-                        <div class="hex-title">Тепло і Сухо</div>
-                    </div>
-                    <div class="hex-item">
-                        <div class="hex-icon-box">📹</div>
-                        <div class="hex-title">Відеонагляд</div>
-                    </div>
-                    <div class="hex-item">
-                        <div class="hex-icon-box">🚛</div>
-                        <div class="hex-title">Зручний заїзд</div>
-                    </div>
-                    <div class="hex-item">
-                        <div class="hex-icon-box">🛒</div>
-                        <div class="hex-title">Є візки/рокла</div>
-                    </div>
+    <section class="honeycomb-section">
+        <div class="container">
+            <h2 class="section-title">Чому обирають нас</h2>
+            <div class="hex-grid-container">
+                <div class="hex-row type-yellow">
+                    <div class="hex-wrapper"><div class="hex-border"><div class="hex-inner"><i data-lucide="shield"></i><h4>Власна<br>охорона</h4></div></div></div>
+                    <div class="hex-wrapper"><div class="hex-border"><div class="hex-inner"><i data-lucide="user-check"></i><h4>Доброзичливий<br>персонал</h4></div></div></div>
+                    <div class="hex-wrapper"><div class="hex-border"><div class="hex-inner"><i data-lucide="arrow-up-from-line"></i><h4>Візки та<br>рампа</h4></div></div></div>
+                    <div class="hex-wrapper"><div class="hex-border"><div class="hex-inner"><i data-lucide="map-pin"></i><h4>Зручне<br>розташування</h4></div></div></div>
+                </div>
+                <div class="hex-row type-yellow">
+                    <div class="hex-wrapper"><div class="hex-border"><div class="hex-inner"><i data-lucide="layout-grid"></i><h4>Ефективний<br>простір</h4></div></div></div>
+                    <div class="hex-wrapper"><div class="hex-border"><div class="hex-inner"><i data-lucide="video"></i><h4>Відеонагляд</h4></div></div></div>
+                    <div class="hex-wrapper"><div class="hex-border"><div class="hex-inner"><i data-lucide="truck"></i><h4>Спецтехніка</h4></div></div></div>
+                </div>
+                <div class="hex-row type-yellow offset-left">
+                    <div class="hex-wrapper"><div class="hex-border"><div class="hex-inner"><i data-lucide="tag"></i><h4>Знижки</h4></div></div></div>
+                    <div class="hex-wrapper"><div class="hex-border"><div class="hex-inner"><i data-lucide="door-open"></i><h4>Легкий<br>доступ</h4></div></div></div>
+                    <div class="hex-wrapper"><div class="hex-border"><div class="hex-inner"><i data-lucide="parking-circle"></i><h4>Парковка</h4></div></div></div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section class="calculator-section" id="calculator">
-            <div class="container">
-                <h2 class="section-title" style="text-align: center;">Оберіть
-                    бокс ідеального розміру</h2>
-                <p
-                    style="text-align: center; margin-bottom: 40px; color: #666;">
-                    Скористайтеся нашим калькулятором, щоб швидко визначити
-                    оптимальну площу.
-                    <br>Виберіть автомобіль для перевезення речей — і система
-                    миттєво підбере бокс.
-                </p>
-
-                <div class="vehicle-selector">
-                    <div class="vehicle-btn" onclick="selectVehicle(1.5)">
-                        <span class="v-icon">🚗</span>
-                        <span class="v-name">Легковик</span>
-                        <span class="v-size">~1.5 м²</span>
-                    </div>
-                    <div class="vehicle-btn" onclick="selectVehicle(3)">
-                        <span class="v-icon">🚙</span>
-                        <span class="v-name">Пікап/Універсал</span>
-                        <span class="v-size">~3 м²</span>
-                    </div>
-                    <div class="vehicle-btn" onclick="selectVehicle(6)">
-                        <span class="v-icon">🚐</span>
-                        <span class="v-name">Бус/Вантажівка</span>
-                        <span class="v-size">~6 м²</span>
+    <section class="honeycomb-section" style="background: #fff;">
+        <div class="container">
+            <div class="rules-wrapper">
+                <div class="rules-column">
+                    <h2 class="section-title" style="color: var(--primary);">ДОЗВОЛЕНО</h2>
+                    <div class="hex-grid-container">
+                        <div class="hex-row type-yellow">
+                            <div class="hex-wrapper"><div class="hex-border"><div class="hex-inner"><i data-lucide="washing-machine"></i><h4>Техніка</h4></div></div></div>
+                            <div class="hex-wrapper"><div class="hex-border"><div class="hex-inner"><i data-lucide="shirt"></i><h4>Одяг</h4></div></div></div>
+                            <div class="hex-wrapper"><div class="hex-border"><div class="hex-inner"><i data-lucide="disc"></i><h4>Шини</h4></div></div></div>
+                        </div>
+                        <div class="hex-row type-yellow offset-right">
+                            <div class="hex-wrapper"><div class="hex-border"><div class="hex-inner"><i data-lucide="armchair"></i><h4>Меблі</h4></div></div></div>
+                            <div class="hex-wrapper"><div class="hex-border"><div class="hex-inner"><i data-lucide="trophy"></i><h4>Спорт</h4></div></div></div>
+                            <div class="hex-wrapper"><div class="hex-border"><div class="hex-inner"><i data-lucide="monitor"></i><h4>Офіс</h4></div></div></div>
+                        </div>
                     </div>
                 </div>
-
-                <div class="size-grid" id="sizeGrid">
-                </div>
-
-                <div
-                    style="text-align: center; margin-bottom: 10px; font-weight: 600;">Термін
-                    оренди:</div>
-                <div class="term-selector">
-                    <button class="term-btn active" onclick="selectTerm(1)">1
-                        міс</button>
-                    <button class="term-btn" onclick="selectTerm(3)">3
-                        міс</button>
-                    <button class="term-btn" onclick="selectTerm(6)">6 міс
-                        (-5%)</button>
-                    <button class="term-btn promo" onclick="selectTerm(12)">12
-                        міс (-10%)</button>
-                    <button class="term-btn promo" onclick="selectTerm(15)">15+
-                        міс (Акція)</button>
-                </div>
-
-                <div class="result-card">
-                    <div id="promoBadge" class="discount-badge"
-                        style="display: none;">Акція активована!</div>
-                    <h3 id="sizeName"
-                        style="font-size: 24px; margin-bottom: 0;">Бокс 1
-                        м³</h3>
-                    <div class="price-tag"><span id="totalPrice">450</span>
-                        <small style="font-size: 20px;">грн</small></div>
-                    <p class="price-label">за місяць</p>
-                    <br>
-                    <button class="btn-hero"
-                        onclick="alert('Тут відкриється форма: Ім\'я, Телефон')">ЗАБРОНЮВАТИ</button>
-                </div>
-            </div>
-        </section>
-
-        <section class="location">
-            <div class="container">
-                <h2 class="section-title">Як нас знайти</h2>
-                <p style="font-size: 20px; font-weight: 700;">м. Вінниця, вул.
-                    Фрунзе 4</p>
-
-                <div class="maps-row">
-                    <div class="map-frame">
-                        <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2605.184328842609!2d28.4876!3d49.2329!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDnCsDEzJzU4LjUiTiAyOMKwMjknMTUuNCJF!5e0!3m2!1suk!2sua!4v1630000000000!5m2!1suk!2sua"
-                            width="100%" height="100%" style="border:0;"
-                            allowfullscreen loading="lazy"></iframe>
-                    </div>
-                    <div class="map-frame">
-                        <div class="scheme-placeholder">
-                            <span
-                                style="font-size: 40px; margin-bottom: 10px;">🗺️</span>
-                            <h3>Схема проїзду</h3>
-                            <p>(Тут буде ваше фото зі стрілочками)</p>
+                <div class="rules-column">
+                    <h2 class="section-title" style="color: #d63031;">ЗАБОРОНЕНО</h2>
+                    <div class="hex-grid-container">
+                        <div class="hex-row type-gray">
+                            <div class="hex-wrapper"><div class="hex-border"><div class="hex-inner"><i data-lucide="utensils"></i><h4>Продукти</h4></div></div></div>
+                            <div class="hex-wrapper"><div class="hex-border"><div class="hex-inner"><i data-lucide="sprout"></i><h4>Рослини</h4></div></div></div>
+                        </div>
+                        <div class="hex-row type-gray">
+                            <div class="hex-wrapper"><div class="hex-border"><div class="hex-inner"><i data-lucide="shield-ban"></i><h4>Зброя</h4></div></div></div>
+                            <div class="hex-wrapper"><div class="hex-border"><div class="hex-inner"><i data-lucide="flame"></i><h4>Балони</h4></div></div></div>
+                            <div class="hex-wrapper"><div class="hex-border"><div class="hex-inner"><i data-lucide="fuel"></i><h4>Паливо</h4></div></div></div>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <footer>
-            <div class="container">
-                <div class="logo"
-                    style="color: white; margin-bottom: 10px;">Місце<span>Є</span></div>
-                <p class="footer-slogan">Коли вдома стає вільніше</p>
+    <section class="calculator" id="calculator">
+        <div class="container">
+            <h2 class="section-title">Оберіть бокс ідеального розміру</h2>
+            <p class="section-desc">
+                Виберіть автомобіль для перевезення речей — і система миттєво підбере бокс відповідного розміру.
+            </p>
 
-                <div class="schedule">
-                    <p>🕒 Склад: Пн-Нд 07:00 - 22:00</p>
-                    <p>🕘 Офіс: Пн-Нд 09:00 - 20:00</p>
+            <div class="vehicle-wrap">
+                <div class="vehicle-btn" onclick="setCar('sedan')">
+                    <img src="https://api.iconify.design/mdi:car-side.svg?color=%23333" alt="Легковик">
+                    <span class="v-title">Легковик</span>
+                    <span class="v-subtitle">~1.5 м³</span>
                 </div>
-
-                <div class="social-links">
-                    <a href="#" class="social-btn viber" title="Viber">V</a>
-                    <a href="#" class="social-btn tg" title="Telegram">T</a>
+                <div class="vehicle-btn" onclick="setCar('pickup')">
+                    <img src="https://api.iconify.design/mdi:car-pickup.svg?color=%23333" alt="Пікап">
+                    <span class="v-title">Пікап</span>
+                    <span class="v-subtitle">~3 м²</span>
                 </div>
-
-                <div style="margin-top: 40px; font-size: 12px; color: #aaa;">
-                    © 2025 МісцеЄ. Всі права захищені.
+                <div class="vehicle-btn" onclick="setCar('van')">
+                    <img src="https://api.iconify.design/mdi:van-utility.svg?color=%23333" alt="Бус">
+                    <span class="v-title">Бус</span>
+                    <span class="v-subtitle">~6 м²</span>
                 </div>
             </div>
-        </footer>
 
-        <script>
-        // ЦІНИ ТА РОЗМІРИ (з твого повідомлення)
-        // 1 м.куб = 450, 1.5 м.куб = 675, 2 м.кв = 900 ... 6 м.кв = 2400
-        const boxSizes = [
-            { val: 1, label: "1 м³", price: 450, isCube: true },
-            { val: 1.5, label: "1.5 м³", price: 675, isCube: true },
-            { val: 2, label: "2 м²", price: 900, isCube: false },
-            { val: 3, label: "3 м²", price: 1350, isCube: false },
-            { val: 4, label: "4 м²", price: 1600, isCube: false },
-            { val: 5, label: "5 м²", price: 2000, isCube: false },
-            { val: 6, label: "6 м²", price: 2400, isCube: false }
+            <div class="calc-grid">
+                <div class="left-col">
+                    <h3 style="margin-bottom: 5px; font-size: 14px; text-transform: uppercase; color: var(--gray);">Доступні розміри:</h3>
+                    
+                    <div class="sizes-wrap" id="sizesContainer"></div>
+
+                    <div style="text-align: center; margin-bottom: 10px; font-weight: 600; color: var(--gray);">Термін оренди:</div>
+                    <div class="term-selector">
+                        <button class="term-btn active" onclick="setDuration(1)">1 міс</button>
+                        <button class="term-btn" onclick="setDuration(3)">3 міс</button>
+                        <button class="term-btn" onclick="setDuration(6)">6 міс (-5%)</button>
+                        <button class="term-btn" onclick="setDuration(12)">12 міс (-10%)</button>
+                        <button class="term-btn promo-btn" onclick="setDuration(15)">15+ міс (Акція)</button>
+                    </div>
+
+                    <div class="calc-result-bar">
+                        <div id="promoBadge" class="discount-badge" style="display: none;">Акція активована! (-15%)</div>
+
+                        <div class="result-content">
+                            <div class="result-left">
+                                <h3 id="resultTitle" class="result-title">Бокс 1.5 м³</h3>
+                                <div class="result-price-block">
+                                    <span id="oldPrice" class="old-price" style="display:none;">750</span>
+                                    <span id="resultPrice" class="result-price">675</span>
+                                    <span class="result-price" style="font-size: 24px;">грн</span>
+                                    <span style="font-size: 12px; color: #666; display: block;">за місяць</span>
+                                    <span id="totalSum" class="total-sum">Разом: 675 грн</span>
+                                </div>
+                            </div>
+                            <div class="result-actions">
+                                <button class="btn-green">ЗАБРОНЮВАТИ</button>
+                                <button class="btn-dark">ЕКСКУРСІЯ</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="visualizer">
+                    <div class="size-badge" id="visualBadge">1.5 м³</div>
+                    <img id="visualImage" src="" alt="Візуалізація" 
+                         onerror="this.style.display='none'; this.parentNode.innerHTML='<div style=\'padding:20px;text-align:center\'>Зображення не знайдено.<br>Перевірте папку images</div>'">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="location-section">
+        <div class="container">
+            <h2 class="section-title">Як нас знайти</h2>
+            <div style="text-align: center; font-size: 18px; font-weight: 700; margin-bottom: 10px;">
+                м. Вінниця, вул. Фрунзе 4
+            </div>
+            <div class="maps-row">
+                <div class="map-frame">
+                    <iframe src="https://maps.google.com/maps?q=Вінниця,%20вул.%20Фрунзе%204&t=&z=15&ie=UTF8&iwloc=&output=embed" width="100%" height="100%" frameborder="0" style="border:0;" allowfullscreen></iframe>
+                </div>
+                <div class="map-frame">
+                    <div class="scheme-placeholder">
+                        <i data-lucide="map" style="width: 48px; height: 48px; margin-bottom: 15px;"></i>
+                        <h3 style="margin-bottom: 5px;">Схема заїзду</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="logo" style="color: white; margin-bottom: 20px;">Місце<span>Є</span></div>
+            <p>м. Вінниця, вул. Фрунзе 4</p>
+            <p style="margin-top: 30px; opacity: 0.5; font-size: 12px;">© 2026 МісцеЄ. Всі права захищені.</p>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        const boxes = [
+            { id: '1m3', val: 1, label: '1 м³', price: 450, img: 'images/image_f39daa.jpg', desc: 'Коробка, валіза, гантелі' },
+            { id: '1.5m3', val: 1.5, label: '1.5 м³', price: 675, img: 'images/image_f39db1.jpg', desc: 'Синя коробка, шини' },
+            { id: '2m2', val: 2, label: '2 м²', price: 900, img: 'images/image_f39dcf.jpg', desc: 'Шини, шафа, лампа' },
+            { id: '3m2', val: 3, label: '3 м²', price: 1350, img: 'images/image_f3a1aa.jpg', desc: 'Стіл, шафа, шини' },
+            { id: '4m2', val: 4, label: '4 м²', price: 1600, img: 'images/image_f3a1e7.jpg', desc: 'Стіл, шафа, коробки' },
+            { id: '5m2', val: 5, label: '5 м²', price: 2000, img: 'images/image_f3a224.jpg', desc: 'Червоний диван' },
+            { id: '6m2', val: 6, label: '6 м²', price: 2400, img: 'images/image_f3a264.jpg', desc: 'Диван, велосипед' }
         ];
 
-        let currentSize = 1;  // Поточний обраний розмір
-        let currentTerm = 1;  // Поточний термін (місяців)
+        const cars = {
+            'sedan': { default: '1.5m3', allowed: [1, 1.5, 2] },
+            'pickup': { default: '3m2', allowed: [2, 3, 4] },
+            'van': { default: '6m2', allowed: [4, 5, 6] }
+        };
 
-        const sizeGrid = document.getElementById('sizeGrid');
-        const totalPriceEl = document.getElementById('totalPrice');
-        const promoBadge = document.getElementById('promoBadge');
-        const sizeNameEl = document.getElementById('sizeName');
+        // --- НОВА ЛОГІКА ЗНИЖОК ---
+        const discounts = {
+            1: 0,
+            3: 0,
+            6: 0.05,  // -5%
+            12: 0.10, // -10%
+            15: 0.15  // -15% (Акція)
+        };
 
-        // 1. Ініціалізація кнопок розмірів
-        function renderSizes() {
-            sizeGrid.innerHTML = '';
-            boxSizes.forEach(box => {
-                const btn = document.createElement('div');
-                btn.className = `size-btn ${box.val === currentSize ? 'active' : ''}`;
-                btn.innerHTML = `${box.label}<br><small>${box.price} грн</small>`;
-                btn.onclick = () => {
-                    currentSize = box.val;
-                    highlightVehicle(null); // скинути підсвітку авто при ручному виборі
-                    updateCalc();
-                };
-                sizeGrid.appendChild(btn);
-            });
-        }
+        let currentCar = 'sedan';
+        let currentBoxId = '1.5m3';
+        let currentDuration = 1;
 
-        // 2. Логіка вибору авто (спрощена прив'язка до розмірів)
-        function selectVehicle(size) {
-            currentSize = size;
-            highlightVehicle(size);
-            updateCalc();
-        }
+        const sizesContainer = document.getElementById('sizesContainer');
+        const visualImage = document.getElementById('visualImage');
+        const visualBadge = document.getElementById('visualBadge');
+        const resultTitle = document.getElementById('resultTitle');
+        const promoBadge = document.getElementById('promoBadge'); // Бейдж акції
+        
+        const resultPriceEl = document.getElementById('resultPrice');
+        const oldPriceEl = document.getElementById('oldPrice');
+        const totalSumEl = document.getElementById('totalSum');
 
-        function highlightVehicle(size) {
-            // Зняти активність з усіх авто
+        function setCar(carType) {
+            currentCar = carType;
             document.querySelectorAll('.vehicle-btn').forEach(btn => btn.classList.remove('active'));
-            // Якщо size передано, знайти кнопку з таким size і підсвітити (приблизно)
-            if (size) {
-                // Тут проста логіка: шукаємо по onclick атрибуту (для прототипу ок)
-                const target = document.querySelector(`.vehicle-btn[onclick="selectVehicle(${size})"]`);
-                if (target) target.classList.add('active');
-            }
+            const targetBtn = document.querySelector(`.vehicle-btn[onclick="setCar('${carType}')"]`);
+            if(targetBtn) targetBtn.classList.add('active');
+            setBox(cars[carType].default);
         }
 
-        // 3. Логіка термінів
-        function selectTerm(months) {
-            currentTerm = months;
-            document.querySelectorAll('.term-btn').forEach(btn => btn.classList.remove('active'));
-            // Знайти кнопку, по якій клікнули (this не працює в стрілочній функції так просто, тому шукаємо по тексту)
-            // Або просто передамо event, але для простоти перерендеримо класи:
-            // (В реальному проекті краще через id)
-            const btns = document.querySelectorAll('.term-btn');
-            btns.forEach(b => {
-                if(b.innerText.startsWith(months + ' ')) b.classList.add('active');
+        function setBox(id) {
+            currentBoxId = id;
+            const box = boxes.find(b => b.id === id);
+            
+            visualImage.src = box.img;
+            visualImage.alt = box.desc; 
+            visualBadge.innerText = box.label;
+            resultTitle.innerText = `Бокс ${box.label}`;
+            
+            updatePriceDisplay();
+            renderSizes();
+        }
+
+        function setDuration(months) {
+            currentDuration = months;
+            
+            // Оновлення кнопок терміну
+            document.querySelectorAll('.term-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if(btn.onclick.toString().includes(`setDuration(${months})`)) {
+                    btn.classList.add('active');
+                }
             });
-            updateCalc();
+
+            updatePriceDisplay();
         }
 
-        // 4. Головний перерахунок
-        function updateCalc() {
-            renderSizes(); // Оновити підсвітку кнопок розміру
+        function updatePriceDisplay() {
+            const box = boxes.find(b => b.id === currentBoxId);
+            const basePrice = box.price;
+            const discount = discounts[currentDuration];
+            
+            const discountedMonthlyPrice = Math.round(basePrice * (1 - discount));
+            const total = discountedMonthlyPrice * currentDuration;
 
-            const box = boxSizes.find(b => b.val === currentSize);
-            let finalPrice = box.price;
-            let promoText = '';
-
-            // Логіка знижок
-            if (currentTerm >= 15) {
-                // 15 міс: перший місяць безкоштовно.
-                // В перерахунку на щомісячну знижку це десь -7% або просто показуємо повну ціну, але пишемо про акцію.
-                // Юрій просив "ціна повинна бути на 7% дешевше".
-                finalPrice = Math.round(finalPrice * 0.93);
-                promoText = "Акція: -7% (1-й міс безкоштовно!)";
-                promoBadge.style.background = "#e17055"; // червоний
-            } else if (currentTerm >= 12) {
-                finalPrice = Math.round(finalPrice * 0.95); // -5%
-                promoText = "Знижка -5% активована";
-                promoBadge.style.background = "#ff9f43"; // помаранчевий
-            } else if (currentTerm >= 6) {
-                // Додамо невелику знижку для 6 міс, якщо треба, або лишимо повну
-                // Юрій просив 6-12 міс знижку 5%. (Він написав "від 12 міс 5%", але в іншому місці "від 6 міс").
-                // Давай зробимо: 6 міс = стандарт, 12 міс = -5%, 15 міс = -7%
-                // Якщо він просив від 6 міс, то тут можна додати:
-                // finalPrice = Math.round(finalPrice * 0.95); 
-                // promoText = "Знижка -5%";
+            // Оновлення ціни
+            resultPriceEl.innerText = discountedMonthlyPrice;
+            
+            // Логіка показу старої ціни і кольору
+            if (discount > 0) {
+                oldPriceEl.innerText = basePrice;
+                oldPriceEl.style.display = 'inline-block';
+                resultPriceEl.style.color = '#e1306c';
+            } else {
+                oldPriceEl.style.display = 'none';
+                resultPriceEl.style.color = 'var(--primary)';
             }
 
-            totalPriceEl.innerText = finalPrice;
-            sizeNameEl.innerText = `Бокс ${box.label}`;
-
-            if (promoText) {
-                promoBadge.style.display = 'inline-block';
-                promoBadge.innerText = promoText;
+            // Логіка Бейджа Акції
+            if (currentDuration >= 15) {
+                promoBadge.style.display = 'block';
             } else {
                 promoBadge.style.display = 'none';
             }
+
+            totalSumEl.innerText = `Разом: ${total} грн за ${currentDuration} міс.`;
         }
 
-        // Запуск
+        function renderSizes() {
+            sizesContainer.innerHTML = '';
+            const allowedVals = cars[currentCar].allowed;
+            boxes.forEach(box => {
+                const btn = document.createElement('div');
+                const isAllowed = allowedVals.includes(box.val);
+                const isActive = box.id === currentBoxId;
+                
+                btn.className = `size-btn ${isActive ? 'active' : ''} ${!isAllowed ? 'disabled' : ''}`;
+                btn.innerHTML = `<span class="size-val">${box.label}</span><span class="size-price">${box.price} ₴</span>`;
+                
+                if (isAllowed) btn.onclick = () => setBox(box.id);
+                sizesContainer.appendChild(btn);
+            });
+        }
+
         renderSizes();
+        document.querySelector('.vehicle-btn').classList.add('active');
+        setBox('1.5m3'); 
     </script>
-    </body>
+</body>
 </html>
