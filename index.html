@@ -182,36 +182,37 @@
                 --hex-h: 155px; 
             }
 
-            /* --- МАГІЯ ВИРІВНЮВАННЯ --- */
-            /* 1. Головний контейнер сот стає простим Flex-контейнером */
-            .hex-grid-container {
+            /* Прибираємо зсуви */
+            .offset-right, .offset-left, .push-right { 
+                transform: none !important; 
+                margin: 0 !important;
+            }
+
+            /* Перетворюємо ряди на плитку */
+            .hex-row { 
                 display: flex;
-                flex-wrap: wrap;       /* Дозволяємо перенос */
-                justify-content: center; /* Центруємо все */
-                gap: 15px;             /* Відступ між всіма сотами */
+                flex-wrap: wrap;       
+                justify-content: center; 
+                gap: 10px; /* Зменшений відступ для щільності */
+                margin: 0 !important;  
                 width: 100%;
-                padding: 0;
+                z-index: 1 !important; 
             }
-
-            /* 2. Ряди (hex-row) перестають бути блоками! 
-               Вони "зникають" для розмітки, і їхні діти (соти) стають прямими дітьми .hex-grid-container */
-            .hex-row {
-                display: contents; 
-            }
-
-            /* 3. Прибираємо всі зсуви з самих сот */
+            
+            /* Примусово прибираємо вертикальні зсуви */
             .hex-wrapper, .hex-wrapper:nth-child(even), .hex-wrapper:nth-child(odd) {
                 margin: 0 !important;
                 transform: none !important;
             }
 
-            /* 4. Прибираємо класи зсувів */
-            .offset-right, .offset-left, .push-right { 
-                transform: none !important; 
-                margin: 0 !important;
+            .hex-grid-container {
+                width: 100%;
+                padding: 0;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
             }
             
-            /* Текст всередині соти */
             .hex-inner h4 { 
                 font-size: 11px; 
                 white-space: normal;
