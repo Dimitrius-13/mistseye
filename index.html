@@ -20,7 +20,7 @@
             --gray: #636e72;
             --bg-light: #f1f8e9;
 
-            /* --- РОЗМІРИ СОТ --- */
+            /* --- РОЗМІРИ СОТ (Десктоп) --- */
             --hex-w: 130px;
             --hex-h: 150px;        
             --hex-gap: 6px;        
@@ -42,6 +42,10 @@
         .header-contacts { display: flex; gap: 20px; align-items: center; }
         .phones { display: flex; flex-direction: column; text-align: right; font-weight: 700; font-size: 14px; }
         .phones a:hover { color: var(--primary); }
+        
+        .social-icons-header { display: flex; gap: 10px; }
+        .social-icons-header a { display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; background: #eee; border-radius: 50%; color: var(--text); transition: 0.3s; }
+        .social-icons-header a:hover { background: var(--primary); color: white; }
 
         /* HERO */
         .hero {
@@ -53,32 +57,39 @@
         .btn-hero { background: var(--primary); color: white; padding: 15px 40px; border-radius: 50px; font-size: 18px; font-weight: 700; box-shadow: 0 10px 20px rgba(0,0,0,0.2); cursor: pointer; border: none; }
         .btn-hero:hover { background: var(--primary-dark); transform: scale(1.05); }
 
+        /* INTRO TEXT */
+        .intro-text-section { padding: 50px 0 30px; background: var(--bg-light); text-align: center; }
+        .intro-text-content { max-width: 800px; margin: 0 auto; font-size: 18px; color: var(--text); }
+        .highlight-text { font-weight: 800; color: var(--primary-dark); display: block; margin-top: 10px; font-size: 20px; }
+
         /* --- HONEYCOMB --- */
         .honeycomb-section { padding: 60px 0; }
         .section-title { font-size: 32px; color: var(--text); margin-bottom: 40px; font-weight: 800; text-transform: uppercase; text-align: center; }
-        .section-intro-text { text-align: center; max-width: 800px; margin: 0 auto 40px; font-size: 18px; color: var(--text); line-height: 1.5; }
-
+        
         .hex-grid-container { display: flex; flex-direction: column; align-items: center; padding-bottom: 30px; }
         .hex-row { display: flex; justify-content: center; gap: var(--hex-gap); margin-top: var(--row-overlap); position: relative; z-index: 1; }
         .hex-row:first-child { margin-top: 0; z-index: 10; }
         .hex-row:nth-child(2) { z-index: 9; }
         .hex-row:nth-child(3) { z-index: 8; }
-        .push-right { margin-left: calc(var(--hex-w) + var(--hex-gap)); }
-        .offset-right { transform: translateX(calc(var(--shift-amount) / 1)); }
         .offset-left { transform: translateX(calc(var(--shift-amount) * -1)); }
+        .offset-right { transform: translateX(calc(var(--shift-amount) / 1)); }
+        
         .hex-wrapper { width: var(--hex-w); height: var(--hex-h); filter: drop-shadow(0 4px 3px rgba(0,0,0,0.15)); transition: transform 0.2s; }
         .hex-wrapper:hover { transform: scale(1.05); z-index: 50; }
         .hex-border { width: 100%; height: 100%; clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); background-color: #333; display: flex; align-items: center; justify-content: center; }
-        .hex-inner { width: calc(100% - 4px); height: calc(100% - 4px); clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); background-color: #fff; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 5px; gap: 10px; }
-        .hex-inner i, .hex-inner svg { width: 32px; height: 32px; stroke-width: 1.5; }
-        .hex-inner h4 { margin: 0; font-size: 11px; font-weight: 800; text-transform: uppercase; line-height: 1.2; color: #2d3436; }
+        .hex-inner { width: calc(100% - 4px); height: calc(100% - 4px); clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); background-color: #fff; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 5px; gap: 5px; }
+        .hex-inner i, .hex-inner svg { width: 32px; height: 32px; stroke-width: 1.5; margin-bottom: 5px; }
+        .hex-inner h4 { margin: 0; font-size: 11px; font-weight: 800; text-transform: uppercase; line-height: 1.1; color: #2d3436; max-width: 90%; }
+        
         .type-yellow .hex-border { background-color: var(--border-yellow); }
         .type-yellow .hex-inner { background-color: var(--accent-yellow); }
         .type-yellow:hover .hex-inner { background-color: #ffd54f; }
+        
         .type-gray .hex-border { background-color: var(--border-gray); }
         .type-gray .hex-inner { background-color: var(--accent-gray); }
         .type-gray .hex-inner h4 { color: white; }
         .type-gray .hex-inner i, .type-gray .hex-inner svg { stroke: white; }
+        
         .rules-wrapper { display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; align-items: flex-start; }
         .rules-column { flex: 1; min-width: 320px; display: flex; flex-direction: column; align-items: center; }
 
@@ -103,88 +114,29 @@
         .size-val { font-size: 16px; font-weight: 800; line-height: 1.2; }
         .size-price { font-size: 13px; font-weight: 600; margin-top: 5px; }
 
-        /* ОНОВЛЕНО: ТЕРМІН ОРЕНДИ */
-        .term-selector { 
-            display: flex; 
-            gap: 10px; 
-            margin-bottom: 25px; 
-            background: #f9f9f9; 
-            padding: 5px; 
-            border-radius: 15px; 
-            flex-wrap: wrap; 
-            justify-content: center;
-        }
-        .term-btn { 
-            flex: 1; 
-            min-width: 80px;
-            border: none; 
-            background: transparent; 
-            padding: 10px 5px; 
-            border-radius: 10px; 
-            font-weight: 700; 
-            color: var(--gray); 
-            cursor: pointer; 
-            transition: 0.3s; 
-            font-size: 12px;
-            position: relative;
-        }
+        .term-selector { display: flex; gap: 10px; margin-bottom: 25px; background: #f9f9f9; padding: 5px; border-radius: 15px; flex-wrap: wrap; justify-content: center; }
+        .term-btn { flex: 1; min-width: 80px; border: none; background: transparent; padding: 10px 5px; border-radius: 10px; font-weight: 700; color: var(--gray); cursor: pointer; transition: 0.3s; font-size: 12px; position: relative; }
         .term-btn:hover { background: #eee; }
-        .term-btn.active { 
-            background: white; 
-            color: var(--primary-dark); 
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1); 
-        }
-        /* Стиль для кнопки Акція (15+ міс) */
-        .term-btn.promo-btn {
-            color: #d63031;
-        }
-        .term-btn.promo-btn.active {
-            color: #d63031;
-            background: #fff0f0;
-        }
+        .term-btn.active { background: white; color: var(--primary-dark); box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .term-btn.promo-btn { color: #d63031; }
+        .term-btn.promo-btn.active { color: #d63031; background: #fff0f0; }
 
-        /* Результат */
-        .calc-result-bar { 
-            background: #f1f8e9; 
-            border: 2px solid #c8e6c9; 
-            padding: 20px 30px; 
-            border-radius: 15px; 
-            display: flex; 
-            flex-direction: column; /* Змінив на column для бейджа */
-            position: relative;
-        }
+        /* GALLERY */
+        .gallery-section { padding: 40px 0; overflow: hidden; }
+        .gallery-wrapper { display: flex; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 20px; -webkit-overflow-scrolling: touch; }
+        .gallery-item { min-width: 300px; height: 300px; flex-shrink: 0; scroll-snap-align: center; border-radius: 10px; overflow: hidden; }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
+        .gallery-item:hover img { transform: scale(1.05); }
+        .gallery-wrapper::-webkit-scrollbar { height: 8px; }
+        .gallery-wrapper::-webkit-scrollbar-thumb { background: #ccc; border-radius: 4px; }
+
+        .calc-result-bar { background: #f1f8e9; border: 2px solid #c8e6c9; padding: 20px 30px; border-radius: 15px; display: flex; flex-direction: column; position: relative; }
+        .discount-badge { background: #E1306C; color: white; padding: 5px 15px; border-radius: 20px; font-weight: 700; font-size: 14px; text-transform: uppercase; align-self: center; margin-bottom: 15px; box-shadow: 0 4px 10px rgba(225, 48, 108, 0.3); animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
         
-        /* Бейдж акції */
-        .discount-badge {
-            background: #E1306C;
-            color: white;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-weight: 700;
-            font-size: 14px;
-            text-transform: uppercase;
-            align-self: center;
-            margin-bottom: 15px;
-            box-shadow: 0 4px 10px rgba(225, 48, 108, 0.3);
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-
-        .result-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 100%;
-        }
-
+        .result-content { display: flex; align-items: center; justify-content: space-between; width: 100%; }
         .result-title { font-weight: 800; font-size: 22px; color: var(--primary-dark); margin: 0; line-height: 1.2; }
         .result-price-block { margin-top: 5px; }
-        
         .old-price { font-size: 14px; text-decoration: line-through; color: #999; margin-right: 5px; font-weight: 600; }
         .result-price { font-size: 40px; font-weight: 800; color: var(--primary); line-height: 1; }
         .total-sum { font-size: 13px; color: var(--text); background: rgba(255,255,255,0.6); padding: 4px 10px; border-radius: 5px; margin-top: 5px; display: inline-block; font-weight: 600; }
@@ -195,7 +147,6 @@
         .btn-dark { background: #2d3436; color: white; border: none; padding: 15px 30px; border-radius: 30px; font-weight: 700; cursor: pointer; text-transform: uppercase; font-size: 14px; transition: 0.2s; }
         .btn-dark:hover { background: #000; transform: translateY(-2px); }
 
-        /* Visualizer */
         .visualizer { background: #fafafa; border-radius: 20px; overflow: hidden; height: 100%; min-height: 400px; position: relative; display: flex; align-items: center; justify-content: center; border: 1px solid #eee; }
         .visualizer img { width: 100%; height: 100%; object-fit: contain; }
         .size-badge { position: absolute; top: 20px; right: 20px; background: var(--primary); color: white; padding: 5px 15px; border-radius: 20px; font-weight: 700; font-size: 18px; z-index: 10; }
@@ -204,6 +155,7 @@
         .location-section { padding: 60px 0; background-color: var(--bg-light); }
         .maps-row { display: flex; gap: 30px; justify-content: center; margin-top: 40px; flex-wrap: wrap; }
         .map-frame { flex: 1; min-width: 300px; height: 400px; background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border: 2px solid #fff; }
+        .map-frame img { width: 100%; height: 100%; object-fit: cover; }
         .scheme-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: #f8f9fa; color: #aaa; flex-direction: column; }
 
         footer { background: #2d3436; color: white; padding: 50px 0; text-align: center; margin-top: 0; }
@@ -211,6 +163,7 @@
         .social-link { width: 40px; height: 40px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
         .social-link:hover { background: var(--primary); }
 
+        /* --- TABLET --- */
         @media (max-width: 900px) {
             .calc-grid { grid-template-columns: 1fr; }
             .visualizer { height: 300px; min-height: 300px; order: -1; margin-bottom: 20px; } 
@@ -221,12 +174,57 @@
             .phones { text-align: center; }
         }
         
+        /* === MOBILE FIX === */
         @media (max-width: 600px) {
-            :root { --hex-w: 90px; --hex-h: 104px; }
-            .hex-row { flex-wrap: wrap; }
-            .offset-right, .offset-left { transform: none; }
+            :root { 
+                /* Оптимальний розмір, щоб влазило по 2 в ряд */
+                --hex-w: 135px; 
+                --hex-h: 155px; 
+            }
+
+            /* --- МАГІЯ ВИРІВНЮВАННЯ --- */
+            /* 1. Головний контейнер сот стає простим Flex-контейнером */
+            .hex-grid-container {
+                display: flex;
+                flex-wrap: wrap;       /* Дозволяємо перенос */
+                justify-content: center; /* Центруємо все */
+                gap: 15px;             /* Відступ між всіма сотами */
+                width: 100%;
+                padding: 0;
+            }
+
+            /* 2. Ряди (hex-row) перестають бути блоками! 
+               Вони "зникають" для розмітки, і їхні діти (соти) стають прямими дітьми .hex-grid-container */
+            .hex-row {
+                display: contents; 
+            }
+
+            /* 3. Прибираємо всі зсуви з самих сот */
+            .hex-wrapper, .hex-wrapper:nth-child(even), .hex-wrapper:nth-child(odd) {
+                margin: 0 !important;
+                transform: none !important;
+            }
+
+            /* 4. Прибираємо класи зсувів */
+            .offset-right, .offset-left, .push-right { 
+                transform: none !important; 
+                margin: 0 !important;
+            }
+            
+            /* Текст всередині соти */
+            .hex-inner h4 { 
+                font-size: 11px; 
+                white-space: normal;
+                line-height: 1.3;
+                max-width: 95%;
+            }
+            
+            .hex-inner i, .hex-inner svg { width: 28px; height: 28px; margin-bottom: 5px; }
+            .hero h1 { font-size: 26px; }
+            .gallery-item { min-width: 260px; height: 260px; }
             .term-selector { flex-wrap: wrap; }
-            .term-btn { min-width: 45%; }
+            .term-btn { min-width: 45%; margin-bottom: 5px; }
+            .sizes-wrap { grid-template-columns: repeat(2, 1fr); }
         }
     </style>
 </head>
@@ -240,8 +238,16 @@
                     <a href="tel:0985110505">098 511 05 05</a>
                     <a href="tel:0995110505">099 511 05 05</a>
                 </div>
+                <div class="social-icons-header">
+                    <a href="#" title="Instagram">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                    </a>
+                    <a href="#" title="TikTok">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path></svg>
+                    </a>
+                </div>
                 <div style="font-size: 12px; font-weight: 600; color: var(--gray);">
-                    <i data-lucide="map-pin" style="width: 14px; vertical-align: middle;"></i> Вінниця, вул. Фрунзе 4
+                    <i data-lucide="map-pin" style="width: 14px; vertical-align: middle;"></i> Вінниця, вул. Академіка Янгеля, 4
                 </div>
             </div>
         </div>
@@ -255,6 +261,28 @@
             </p>
             <div class="hero-btns">
                 <button class="btn-hero" onclick="document.getElementById('calculator').scrollIntoView({behavior: 'smooth'})">Розрахувати вартість</button>
+            </div>
+        </div>
+    </section>
+
+    
+
+    <section class="gallery-section">
+      <div class="container">
+        <div class="gallery-wrapper">
+          <div class="gallery-item"><img src="images/image_f39db1.jpg" alt="Коридор складу"></div>
+          <div class="gallery-item"><img src="images/image_f3a224.jpg" alt="Бокс зберігання"></div>
+          <div class="gallery-item"><img src="images/image_f39dcf.jpg" alt="Ліфт"></div>
+          <div class="gallery-item"><img src="images/image_f3a1e7.jpg" alt="Бокс зсередини"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="intro-text-section">
+        <div class="container">
+            <div class="intro-text-content">
+                <p>Вам необхідно звільнити підвал, горище чи балкон від речей, якими рідко користуєтеся? Ми вирішимо ваші проблеми.</p>
+                <span class="highlight-text">Звільніть дім для життя, а речі довірте нам.</span>
             </div>
         </div>
     </section>
@@ -296,8 +324,8 @@
                         </div>
                         <div class="hex-row type-yellow offset-right">
                             <div class="hex-wrapper"><div class="hex-border"><div class="hex-inner"><i data-lucide="armchair"></i><h4>Меблі</h4></div></div></div>
-                            <div class="hex-wrapper"><div class="hex-border"><div class="hex-inner"><i data-lucide="trophy"></i><h4>Спорт</h4></div></div></div>
-                            <div class="hex-wrapper"><div class="hex-border"><div class="hex-inner"><i data-lucide="monitor"></i><h4>Офіс</h4></div></div></div>
+                            <div class="hex-wrapper"><div class="hex-border"><div class="hex-inner"><i data-lucide="trophy"></i><h4>Спорт.<br>інвентар</h4></div></div></div>
+                            <div class="hex-wrapper"><div class="hex-border"><div class="hex-inner"><i data-lucide="monitor"></i><h4>Офісна<br>техніка</h4></div></div></div>
                         </div>
                     </div>
                 </div>
@@ -307,11 +335,13 @@
                         <div class="hex-row type-gray">
                             <div class="hex-wrapper"><div class="hex-border"><div class="hex-inner"><i data-lucide="utensils"></i><h4>Продукти</h4></div></div></div>
                             <div class="hex-wrapper"><div class="hex-border"><div class="hex-inner"><i data-lucide="sprout"></i><h4>Рослини</h4></div></div></div>
+                            <div class="hex-wrapper"><div class="hex-border"><div class="hex-inner"><i data-lucide="paw-print"></i><h4>Тварини</h4></div></div></div>
                         </div>
                         <div class="hex-row type-gray">
                             <div class="hex-wrapper"><div class="hex-border"><div class="hex-inner"><i data-lucide="shield-ban"></i><h4>Зброя</h4></div></div></div>
                             <div class="hex-wrapper"><div class="hex-border"><div class="hex-inner"><i data-lucide="flame"></i><h4>Балони</h4></div></div></div>
                             <div class="hex-wrapper"><div class="hex-border"><div class="hex-inner"><i data-lucide="fuel"></i><h4>Паливо</h4></div></div></div>
+                            <div class="hex-wrapper"><div class="hex-border"><div class="hex-inner"><i data-lucide="wind"></i><h4>Запахи</h4></div></div></div>
                         </div>
                     </div>
                 </div>
@@ -322,9 +352,7 @@
     <section class="calculator" id="calculator">
         <div class="container">
             <h2 class="section-title">Оберіть бокс ідеального розміру</h2>
-            <p class="section-desc">
-                Виберіть автомобіль для перевезення речей — і система миттєво підбере бокс відповідного розміру.
-            </p>
+            <p class="section-desc">Виберіть автомобіль для перевезення речей — і система миттєво підбере бокс відповідного розміру.</p>
 
             <div class="vehicle-wrap">
                 <div class="vehicle-btn" onclick="setCar('sedan')">
@@ -347,21 +375,18 @@
             <div class="calc-grid">
                 <div class="left-col">
                     <h3 style="margin-bottom: 5px; font-size: 14px; text-transform: uppercase; color: var(--gray);">Доступні розміри:</h3>
-                    
                     <div class="sizes-wrap" id="sizesContainer"></div>
-
                     <div style="text-align: center; margin-bottom: 10px; font-weight: 600; color: var(--gray);">Термін оренди:</div>
                     <div class="term-selector">
                         <button class="term-btn active" onclick="setDuration(1)">1 міс</button>
                         <button class="term-btn" onclick="setDuration(3)">3 міс</button>
-                        <button class="term-btn" onclick="setDuration(6)">6 міс (-5%)</button>
-                        <button class="term-btn" onclick="setDuration(12)">12 міс (-10%)</button>
-                        <button class="term-btn promo-btn" onclick="setDuration(15)">15+ міс (Акція)</button>
+                        <button class="term-btn" onclick="setDuration(6)">6 міс</button>
+                        <button class="term-btn" onclick="setDuration(12)">12 міс (-5%)</button>
+                        <button class="term-btn promo-btn" onclick="setDuration(15)">15+ міс (-7%)</button>
                     </div>
 
                     <div class="calc-result-bar">
-                        <div id="promoBadge" class="discount-badge" style="display: none;">Акція активована! (-15%)</div>
-
+                        <div id="promoBadge" class="discount-badge" style="display: none;">Акція активована! (-7%)</div>
                         <div class="result-content">
                             <div class="result-left">
                                 <h3 id="resultTitle" class="result-title">Бокс 1.5 м³</h3>
@@ -374,7 +399,8 @@
                                 </div>
                             </div>
                             <div class="result-actions">
-                                <button class="btn-green">ЗАБРОНЮВАТИ</button>
+                                <div id="crm-widget-container" style="display:none;"></div>
+                                <button class="btn-green" onclick="alert('Бронювання буде доступне з лютого 2026')">ЗАБРОНЮВАТИ</button>
                                 <button class="btn-dark">ЕКСКУРСІЯ</button>
                             </div>
                         </div>
@@ -383,8 +409,7 @@
 
                 <div class="visualizer">
                     <div class="size-badge" id="visualBadge">1.5 м³</div>
-                    <img id="visualImage" src="" alt="Візуалізація" 
-                         onerror="this.style.display='none'; this.parentNode.innerHTML='<div style=\'padding:20px;text-align:center\'>Зображення не знайдено.<br>Перевірте папку images</div>'">
+                    <img id="visualImage" src="" alt="Візуалізація" onerror="this.style.display='none'; this.parentNode.innerHTML='<div style=\'padding:20px;text-align:center\'>Зображення не знайдено.<br>Перевірте папку images</div>'">
                 </div>
             </div>
         </div>
@@ -394,17 +419,14 @@
         <div class="container">
             <h2 class="section-title">Як нас знайти</h2>
             <div style="text-align: center; font-size: 18px; font-weight: 700; margin-bottom: 10px;">
-                м. Вінниця, вул. Фрунзе 4
+                м. Вінниця, вул. Академіка Янгеля, 4
             </div>
             <div class="maps-row">
                 <div class="map-frame">
                     <iframe src="https://maps.google.com/maps?q=Вінниця,%20вул.%20Фрунзе%204&t=&z=15&ie=UTF8&iwloc=&output=embed" width="100%" height="100%" frameborder="0" style="border:0;" allowfullscreen></iframe>
                 </div>
                 <div class="map-frame">
-                    <div class="scheme-placeholder">
-                        <i data-lucide="map" style="width: 48px; height: 48px; margin-bottom: 15px;"></i>
-                        <h3 style="margin-bottom: 5px;">Схема заїзду</h3>
-                    </div>
+                    <img src="image_210821.png" alt="Схема проїзду">
                 </div>
             </div>
         </div>
@@ -413,14 +435,13 @@
     <footer>
         <div class="container">
             <div class="logo" style="color: white; margin-bottom: 20px;">Місце<span>Є</span></div>
-            <p>м. Вінниця, вул. Фрунзе 4</p>
+            <p>м. Вінниця, вул. Академіка Янгеля, 4</p>
             <p style="margin-top: 30px; opacity: 0.5; font-size: 12px;">© 2026 МісцеЄ. Всі права захищені.</p>
         </div>
     </footer>
 
     <script>
         lucide.createIcons();
-
         const boxes = [
             { id: '1m3', val: 1, label: '1 м³', price: 450, img: 'images/image_f39daa.jpg', desc: 'Коробка, валіза, гантелі' },
             { id: '1.5m3', val: 1.5, label: '1.5 м³', price: 675, img: 'images/image_f39db1.jpg', desc: 'Синя коробка, шини' },
@@ -430,32 +451,19 @@
             { id: '5m2', val: 5, label: '5 м²', price: 2000, img: 'images/image_f3a224.jpg', desc: 'Червоний диван' },
             { id: '6m2', val: 6, label: '6 м²', price: 2400, img: 'images/image_f3a264.jpg', desc: 'Диван, велосипед' }
         ];
-
         const cars = {
             'sedan': { default: '1.5m3', allowed: [1, 1.5, 2] },
             'pickup': { default: '3m2', allowed: [2, 3, 4] },
             'van': { default: '6m2', allowed: [4, 5, 6] }
         };
-
-        // --- НОВА ЛОГІКА ЗНИЖОК ---
-        const discounts = {
-            1: 0,
-            3: 0,
-            6: 0.05,  // -5%
-            12: 0.10, // -10%
-            15: 0.15  // -15% (Акція)
-        };
-
-        let currentCar = 'sedan';
-        let currentBoxId = '1.5m3';
-        let currentDuration = 1;
-
+        const discounts = { 1: 0, 3: 0, 6: 0, 12: 0.05, 15: 0.07 };
+        let currentCar = 'sedan'; let currentBoxId = '1.5m3'; let currentDuration = 1;
+        
         const sizesContainer = document.getElementById('sizesContainer');
         const visualImage = document.getElementById('visualImage');
         const visualBadge = document.getElementById('visualBadge');
         const resultTitle = document.getElementById('resultTitle');
-        const promoBadge = document.getElementById('promoBadge'); // Бейдж акції
-        
+        const promoBadge = document.getElementById('promoBadge');
         const resultPriceEl = document.getElementById('resultPrice');
         const oldPriceEl = document.getElementById('oldPrice');
         const totalSumEl = document.getElementById('totalSum');
@@ -471,27 +479,20 @@
         function setBox(id) {
             currentBoxId = id;
             const box = boxes.find(b => b.id === id);
-            
             visualImage.src = box.img;
             visualImage.alt = box.desc; 
             visualBadge.innerText = box.label;
             resultTitle.innerText = `Бокс ${box.label}`;
-            
             updatePriceDisplay();
             renderSizes();
         }
 
         function setDuration(months) {
             currentDuration = months;
-            
-            // Оновлення кнопок терміну
             document.querySelectorAll('.term-btn').forEach(btn => {
                 btn.classList.remove('active');
-                if(btn.onclick.toString().includes(`setDuration(${months})`)) {
-                    btn.classList.add('active');
-                }
+                if(btn.onclick.toString().includes(`setDuration(${months})`)) btn.classList.add('active');
             });
-
             updatePriceDisplay();
         }
 
@@ -499,14 +500,9 @@
             const box = boxes.find(b => b.id === currentBoxId);
             const basePrice = box.price;
             const discount = discounts[currentDuration];
-            
             const discountedMonthlyPrice = Math.round(basePrice * (1 - discount));
             const total = discountedMonthlyPrice * currentDuration;
-
-            // Оновлення ціни
             resultPriceEl.innerText = discountedMonthlyPrice;
-            
-            // Логіка показу старої ціни і кольору
             if (discount > 0) {
                 oldPriceEl.innerText = basePrice;
                 oldPriceEl.style.display = 'inline-block';
@@ -515,14 +511,12 @@
                 oldPriceEl.style.display = 'none';
                 resultPriceEl.style.color = 'var(--primary)';
             }
-
-            // Логіка Бейджа Акції
             if (currentDuration >= 15) {
                 promoBadge.style.display = 'block';
+                promoBadge.innerText = `Акція активована! (-${7}%)`;
             } else {
                 promoBadge.style.display = 'none';
             }
-
             totalSumEl.innerText = `Разом: ${total} грн за ${currentDuration} міс.`;
         }
 
@@ -533,10 +527,8 @@
                 const btn = document.createElement('div');
                 const isAllowed = allowedVals.includes(box.val);
                 const isActive = box.id === currentBoxId;
-                
                 btn.className = `size-btn ${isActive ? 'active' : ''} ${!isAllowed ? 'disabled' : ''}`;
                 btn.innerHTML = `<span class="size-val">${box.label}</span><span class="size-price">${box.price} ₴</span>`;
-                
                 if (isAllowed) btn.onclick = () => setBox(box.id);
                 sizesContainer.appendChild(btn);
             });
