@@ -163,7 +163,86 @@
         .social-link { width: 40px; height: 40px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
         .social-link:hover { background: var(--primary); }
 
-        /* --- TABLET --- */
+        /* --- MODAL WINDOW --- */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 9999;
+            align-items: center; justify-content: center;
+            opacity: 0; transition: opacity 0.3s;
+        }
+        .modal-overlay.active { display: flex; opacity: 1; }
+        .modal-content {
+            background: #fff;
+            width: 90%; max-width: 500px;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            transform: translateY(20px); transition: transform 0.3s;
+            background-image: radial-gradient(#76b041 1px, transparent 1px);
+            background-size: 20px 20px;
+            background-color: #ffffff;
+            border: 4px solid var(--primary);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
+        .modal-overlay.active .modal-content { transform: translateY(0); }
+        .modal-header {
+            background: var(--primary);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+        .modal-header h3 { font-size: 22px; font-weight: 800; text-transform: uppercase; margin: 0; }
+        .modal-header p { font-size: 14px; opacity: 0.9; margin-top: 5px; font-weight: 500; }
+        .close-modal {
+            position: absolute; top: 15px; right: 20px;
+            color: white; font-size: 30px; cursor: pointer; line-height: 0.8;
+            transition: 0.2s;
+        }
+        .close-modal:hover { transform: scale(1.1); }
+        .modal-body {
+            padding: 30px;
+            background: white;
+        }
+        .form-group { margin-bottom: 20px; }
+        .form-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #eee;
+            border-radius: 10px;
+            font-size: 16px;
+            font-family: 'Montserrat', sans-serif;
+            transition: 0.3s;
+        }
+        .form-input:focus { border-color: var(--primary); outline: none; background: #f9fff5; }
+        .btn-submit {
+            width: 100%;
+            padding: 15px;
+            background: #2d3436;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px; font-weight: 800; text-transform: uppercase;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .btn-submit:hover { background: #000; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        
+        .selected-box-display {
+            background: var(--bg-light);
+            color: var(--primary-dark);
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 700;
+            margin-bottom: 20px;
+            border: 1px dashed var(--primary);
+        }
+
+        /* TABLET & MOBILE FIXES */
         @media (max-width: 900px) {
             .calc-grid { grid-template-columns: 1fr; }
             .visualizer { height: 300px; min-height: 300px; order: -1; margin-bottom: 20px; } 
@@ -173,53 +252,13 @@
             .header-contacts { flex-direction: column; gap: 10px; }
             .phones { text-align: center; }
         }
-        
-        /* === MOBILE FIX === */
         @media (max-width: 600px) {
-            :root { 
-                /* Оптимальний розмір, щоб влазило по 2 в ряд */
-                --hex-w: 135px; 
-                --hex-h: 155px; 
-            }
-
-            /* Прибираємо зсуви */
-            .offset-right, .offset-left, .push-right { 
-                transform: none !important; 
-                margin: 0 !important;
-            }
-
-            /* Перетворюємо ряди на плитку */
-            .hex-row { 
-                display: flex;
-                flex-wrap: wrap;       
-                justify-content: center; 
-                gap: 10px; /* Зменшений відступ для щільності */
-                margin: 0 !important;  
-                width: 100%;
-                z-index: 1 !important; 
-            }
-            
-            /* Примусово прибираємо вертикальні зсуви */
-            .hex-wrapper, .hex-wrapper:nth-child(even), .hex-wrapper:nth-child(odd) {
-                margin: 0 !important;
-                transform: none !important;
-            }
-
-            .hex-grid-container {
-                width: 100%;
-                padding: 0;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .hex-inner h4 { 
-                font-size: 11px; 
-                white-space: normal;
-                line-height: 1.3;
-                max-width: 95%;
-            }
-            
+            :root { --hex-w: 135px; --hex-h: 155px; }
+            .offset-right, .offset-left, .push-right { transform: none !important; margin: 0 !important; }
+            .hex-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 0 !important; width: 100%; z-index: 1 !important; }
+            .hex-wrapper, .hex-wrapper:nth-child(even), .hex-wrapper:nth-child(odd) { margin: 0 !important; transform: none !important; }
+            .hex-grid-container { width: 100%; padding: 0; display: flex; flex-direction: column; align-items: center; }
+            .hex-inner h4 { font-size: 11px; white-space: normal; line-height: 1.3; max-width: 95%; }
             .hex-inner i, .hex-inner svg { width: 28px; height: 28px; margin-bottom: 5px; }
             .hero h1 { font-size: 26px; }
             .gallery-item { min-width: 260px; height: 260px; }
@@ -266,8 +305,6 @@
         </div>
     </section>
 
-    
-
     <section class="gallery-section">
       <div class="container">
         <div class="gallery-wrapper">
@@ -298,7 +335,7 @@
                     <div class="hex-wrapper"><div class="hex-border"><div class="hex-inner"><i data-lucide="arrow-up-from-line"></i><h4>Візки та<br>рампа</h4></div></div></div>
                     <div class="hex-wrapper"><div class="hex-border"><div class="hex-inner"><i data-lucide="map-pin"></i><h4>Зручне<br>розташування</h4></div></div></div>
                 </div>
-                <div class="hex-row type-yellow">
+                 <div class="hex-row type-yellow">
                     <div class="hex-wrapper"><div class="hex-border"><div class="hex-inner"><i data-lucide="layout-grid"></i><h4>Ефективний<br>простір</h4></div></div></div>
                     <div class="hex-wrapper"><div class="hex-border"><div class="hex-inner"><i data-lucide="video"></i><h4>Відеонагляд</h4></div></div></div>
                     <div class="hex-wrapper"><div class="hex-border"><div class="hex-inner"><i data-lucide="truck"></i><h4>Спецтехніка</h4></div></div></div>
@@ -313,7 +350,7 @@
     </section>
 
     <section class="honeycomb-section" style="background: #fff;">
-        <div class="container">
+       <div class="container">
             <div class="rules-wrapper">
                 <div class="rules-column">
                     <h2 class="section-title" style="color: var(--primary);">ДОЗВОЛЕНО</h2>
@@ -400,9 +437,8 @@
                                 </div>
                             </div>
                             <div class="result-actions">
-                                <div id="crm-widget-container" style="display:none;"></div>
-                                <button class="btn-green" onclick="alert('Бронювання буде доступне з лютого 2026')">ЗАБРОНЮВАТИ</button>
-                                <button class="btn-dark">ЕКСКУРСІЯ</button>
+                                <button class="btn-green" onclick="openModal('booking')">ЗАБРОНЮВАТИ</button>
+                                <button class="btn-dark" onclick="openModal('excursion')">ЕКСКУРСІЯ</button>
                             </div>
                         </div>
                     </div>
@@ -446,8 +482,37 @@
         </div>
     </footer>
 
+    <div class="modal-overlay" id="bookingModal">
+        <div class="modal-content">
+            <div class="close-modal" onclick="closeModal()">×</div>
+            <div class="modal-header">
+                <h3>Залишити заявку</h3>
+                <p>З Вами зв'яжеться наш менеджер</p>
+            </div>
+            <div class="modal-body">
+                <div class="selected-box-display" id="modalBoxTitle">
+                    Ви обрали: Бокс 1.5 м³
+                </div>
+                <form id="bookingForm" onsubmit="submitForm(event)">
+                    <input type="hidden" id="boxTypeInput" name="boxType" value="">
+                    <div class="form-group">
+                        <input type="text" name="name" class="form-input" placeholder="Ваше ім'я*" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" name="phone" class="form-input" placeholder="Номер телефону*" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" name="email" class="form-input" placeholder="Електронна пошта (необов'язково)">
+                    </div>
+                    <button type="submit" class="btn-submit">Підтвердити</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <script>
         lucide.createIcons();
+        
         const boxes = [
             { id: '1m3', val: 1, label: '1 м³', price: 450, img: 'images/image_f39daa.jpg', desc: 'Коробка, валіза, гантелі' },
             { id: '1.5m3', val: 1.5, label: '1.5 м³', price: 675, img: 'images/image_f39db1.jpg', desc: 'Синя коробка, шини' },
@@ -457,6 +522,7 @@
             { id: '5m2', val: 5, label: '5 м²', price: 2000, img: 'images/image_f3a224.jpg', desc: 'Червоний диван' },
             { id: '6m2', val: 6, label: '6 м²', price: 2400, img: 'images/image_f3a264.jpg', desc: 'Диван, велосипед' }
         ];
+
         const cars = {
             'sedan': { default: '1.5m3', allowed: [1, 1.5, 2] },
             'pickup': { default: '3m2', allowed: [2, 3, 4] },
@@ -538,6 +604,39 @@
                 if (isAllowed) btn.onclick = () => setBox(box.id);
                 sizesContainer.appendChild(btn);
             });
+        }
+
+        const modal = document.getElementById('bookingModal');
+        const modalBoxTitle = document.getElementById('modalBoxTitle');
+        const boxTypeInput = document.getElementById('boxTypeInput');
+
+        function openModal(type) {
+            modal.classList.add('active');
+            
+            if(type === 'excursion') {
+                modalBoxTitle.innerText = "Запис на ЕКСКУРСІЮ";
+                boxTypeInput.value = "Екскурсія";
+            } else {
+                const box = boxes.find(b => b.id === currentBoxId);
+                modalBoxTitle.innerText = `Ви обрали: Бокс ${box.label} (${currentDuration} міс)`;
+                boxTypeInput.value = `Бокс ${box.label}, ${currentDuration} міс., Ціна: ${resultPriceEl.innerText} грн`;
+            }
+        }
+
+        function closeModal() {
+            modal.classList.remove('active');
+        }
+
+        modal.onclick = function(e) {
+            if(e.target === modal) closeModal();
+        }
+
+        function submitForm(e) {
+            e.preventDefault();
+            // НА VERCEL ЦЯ ФУНКЦІЯ НЕ СПРАЦЮЄ ПОВНІСТЮ (немає PHP), АЛЕ ВІЗУАЛЬНО ПОКАЖЕ alert
+            alert('Це демо-версія. На реальному хостингу тут відправиться лист менеджеру.');
+            closeModal();
+            e.target.reset();
         }
 
         renderSizes();
